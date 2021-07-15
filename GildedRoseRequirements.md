@@ -8,6 +8,7 @@ have a system in place that updates our inventory for us. It was developed by a 
 Leeroy, who has moved on to new adventures. 
 
 Your task:
+	
 	- Add the new feature to our system so that we can begin selling a new category of items. 
 	
 First an introduction to our system:
