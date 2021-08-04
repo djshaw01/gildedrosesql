@@ -11,7 +11,7 @@ CREATE OR REPLACE FUNCTION public.daily_update(
 AS $BODY$
 begin
 
-	UPDATE item
+/*	UPDATE item
 	SET
 		quality = quality - 1
 	WHERE 1=1
@@ -78,7 +78,26 @@ begin
 	  AND quality < 50
 	  AND name <> 'Sulfuras, Hand of Ragnaros'
 	;
+	
+	UPDATE item
+	SET
+		quality = quality - 2
+	WHERE  1=1
+	  --AND sellIn < 0
+	  AND quality > 0
+	  AND name = 'Conjured'
+	;
+*/
 
+	update item
+	set 
+		quality = quality + quality_params.quality_delta
+	from quality_params	
+	where 1=1
+	and item.name = quality_params.name
+	and item.quality>=quality_params.quality_min
+	and item.quality<=quality_params.quality_max;
+	
    return 1;
 end;
 $BODY$;
