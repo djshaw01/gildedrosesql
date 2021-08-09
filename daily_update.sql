@@ -19,11 +19,11 @@ begin
 		AND quality > 0
 		AND name <> 'Sulfuras, Hand of Ragnaros'
 	;
-
+ 
 	UPDATE item
 	SET
 		quality = quality + 1
-	WHERE  1=1
+	WHERE  1=1	                                 
 	  AND  NOT  ( name <> 'Aged Brie'  AND  name <> 'Backstage passes to a TAFKAL80ETC concert')
 	  AND quality < 50
 	  AND name = 'Backstage passes to a TAFKAL80ETC concert'
@@ -77,6 +77,15 @@ begin
 	  AND NOT (name <> 'Aged Brie')
 	  AND quality < 50
 	  AND name <> 'Sulfuras, Hand of Ragnaros'
+	;
+	
+	UPDATE item
+	SET
+		quality = quality - 1
+	WHERE  1=1
+	  AND name LIKE 'Conjured%'
+	  AND quality BETWEEN 1 AND 50
+		
 	;
 
    return 1;
