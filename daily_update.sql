@@ -16,17 +16,15 @@ begin
 		quality = quality - 1
 	WHERE 1=1
 		AND ( name <> 'Aged Brie'  AND  name <> 'Backstage passes to a TAFKAL80ETC concert')
-		AND quality > 0
-		AND name <> 'Sulfuras, Hand of Ragnaros'
-	;
-
+		AND ( name <> 'Sulfuras, Hand of Ragnaros' AND name NOT LIKE '%Conjured%')
+		AND quality > 0;
+		 
 	UPDATE item
 	SET
 		quality = quality + 1
-	WHERE  1=1
-	  AND  NOT  ( name <> 'Aged Brie'  AND  name <> 'Backstage passes to a TAFKAL80ETC concert')
+	WHERE  1=1	                                 
+	  AND  name = 'Backstage passes to a TAFKAL80ETC concert'
 	  AND quality < 50
-	  AND name = 'Backstage passes to a TAFKAL80ETC concert'
 	  AND sellIn < 11
 	  AND quality < 50
 	;
@@ -35,9 +33,8 @@ begin
 	SET
 		quality = quality + 1
 	WHERE  1=1
-	  AND  NOT  ( name <> 'Aged Brie'  AND  name <> 'Backstage passes to a TAFKAL80ETC concert')
-	  AND quality < 50
 	  AND name = 'Backstage passes to a TAFKAL80ETC concert'
+	  AND quality < 50
 	  AND sellIn < 6
 	  AND quality < 50
 	;
@@ -65,18 +62,23 @@ begin
 		quality = quality - quality
 	WHERE  1=1
 	  AND sellIn < 0
-	  AND name <> 'Aged Brie'
-	  AND NOT (name <> 'Backstage passes to a TAFKAL80ETC concert')
+	  AND name = 'Backstage passes to a TAFKAL80ETC concert'
 	;
 
 	UPDATE item
 	SET
 		quality = quality + 1
 	WHERE  1=1
-	  AND sellIn < 0
-	  AND NOT (name <> 'Aged Brie')
+	  AND (name = 'Aged Brie' OR name = 'Backstage passes to a TAFKAL80ETC concert')
 	  AND quality < 50
-	  AND name <> 'Sulfuras, Hand of Ragnaros'
+	;
+	
+	UPDATE item
+	SET
+		quality = quality - 2
+	WHERE  1=1
+	  AND name LIKE 'Conjured%'
+	  AND quality > 0
 	;
 
    return 1;
